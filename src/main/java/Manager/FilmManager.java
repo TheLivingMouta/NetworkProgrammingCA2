@@ -74,8 +74,8 @@ public class FilmManager {
     public void rateFilm(String title, double rating){
         Film film = getFilmByTitle(title);
         if(film != null){
-            film.setTotalRatings(film.getTotalRatings() + rating);
             film.setNumberOfRatings(film.getNumberOfRatings() + 1);
+            film.setTotalRatings(film.getTotalRatings() + rating);
         }
     }
 
