@@ -48,7 +48,7 @@ public class Film {
         return totalRatings;
     }
 
-    public void setTotalRatings(int totalRatings) {
+    public void setTotalRatings(double totalRatings) {
         this.totalRatings = totalRatings / numberOfRatings;
     }
 
