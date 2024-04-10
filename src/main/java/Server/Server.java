@@ -12,27 +12,27 @@ import java.util.Scanner;
 
 public class Server {
 
-    private static FilmManager fm;
+    private static FilmManager filmManager;
 
     public static void main(String[] args) {
 
-        try(ServerSocket ls = new ServerSocket(FilmService.PORT)){
-            fm = new FilmManager();
+        try(ServerSocket serverSocket = new ServerSocket(FilmService.PORT)){
+            filmManager = new FilmManager();
 
             boolean validSession = true;
             while(validSession){
-                Socket ds = ls.accept();
+                Socket socket = serverSocket.accept();
 
-                try(Scanner clientInput = new Scanner(ds.getInputStream());
-                PrintWriter clientOutput = new PrintWriter(ds.getOutputStream())){
+                try(Scanner clientInput = new Scanner(socket.getInputStream());
+                PrintWriter clientOutput = new PrintWriter(socket.getOutputStream())){
                     String request = clientInput.nextLine();
-                    System.out.println(ds.getInetAddress() + ":" + ds.getPort());
+                    System.out.println(socket.getInetAddress() + ":" + socket.getPort());
 
                     String response = null;
 
                     String[] components = request.split(FilmService.DELIMITER);
                     switch (components[0]) {
-                        case FilmService.ADD_FILM -> 
+                        case FilmService.ADD_FILM ->
 
                     }
                 }
