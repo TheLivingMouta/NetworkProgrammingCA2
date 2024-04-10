@@ -32,7 +32,26 @@ public class Server {
 
                     String[] components = request.split(FilmService.DELIMITER);
                     switch (components[0]) {
-                        case FilmService.
+                        case FilmService.EXIT:
+                            break;
+                        case FilmService.SHUTDOWN:
+                            break;
+                        case FilmService.REGISTER:
+                            break;
+                        case FilmService.LOGIN:
+                            break;
+                        case FilmService.LOGOUT:
+                            break;
+                        case FilmService.RATING:
+                            break;
+                        case FilmService.SEARCH_TITLE:
+                            break;
+                        case FilmService.SEARCH_GENRE:
+                            break;
+                        case FilmService.ADD_FILM:
+                            break;
+                        case FilmService.REMOVE_FILM:
+                            break;
                     }
                 }
 
