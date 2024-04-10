@@ -1,4 +1,4 @@
-package Classes;
+package business;
 
 import java.util.Objects;
 

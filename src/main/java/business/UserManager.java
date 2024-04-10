@@ -1,9 +1,5 @@
-package Manager;
+package business;
 
-import Classes.Film;
-import Classes.User;
-
-import java.net.spi.InetAddressResolver;
 import java.util.ArrayList;
 
 public class UserManager {
@@ -20,6 +16,8 @@ public class UserManager {
         userList.add(u3);
         userList.add(u4);
     }
+
+
 
     public UserManager() {
         bootstrapUserList();
