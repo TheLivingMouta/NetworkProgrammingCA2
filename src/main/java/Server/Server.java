@@ -32,14 +32,15 @@ public class Server {
 
                     String[] components = request.split(FilmService.DELIMITER);
                     switch (components[0]) {
-                        case FilmService.
+                        case FilmService.ADD_FILM -> 
+
                     }
                 }
 
             }
 
         } catch (BindException e) {
-            System.out.println("BindException occurred when attempting to bind to port " + QuoteService.PORT);
+            System.out.println("BindException occurred when attempting to bind to port " + FilmService.PORT);
             System.out.println(e.getMessage());
         } catch (IOException e) {
             System.out.println("IOException occurred on server socket");
