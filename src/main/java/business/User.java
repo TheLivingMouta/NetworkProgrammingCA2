@@ -16,6 +16,10 @@ public class User {
         this.adminStatus = adminStatus;
     }
 
+    public User(String username, String password){
+
+    }
+
     public User(String username) {
     }
 

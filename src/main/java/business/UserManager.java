@@ -56,6 +56,17 @@ public class UserManager {
         return null;
     }
 
+    public User validateUser (String username, String password){
+        User user = new User(username, password);
+
+        if(user.getPassword().equals(password) && user.getUsername().equals(username)){
+            return user;
+        } else {
+            return null;
+        }
+
+    }
+
     public void displayUsers(){
         int count = 1;
         for (User user : userList) {

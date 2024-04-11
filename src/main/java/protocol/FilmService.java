@@ -44,6 +44,8 @@ public class FilmService {
 
     public static final String ADDED = "ADDED";
 
+    public static final String REMOVED = "REMOVED";
+
     public static final String REJECTED = "REJECTED";
 
     public static final String SUCCESS_ADMIN = "SUCCESS_ADMIN";
@@ -52,7 +54,7 @@ public class FilmService {
 
     public static final String FAILED = "FAILED";
 
-    public static final String SUCESS = "SUCCESS";
+    public static final String SUCCESS = "SUCCESS";
 
     public static final String INVALID_RATING_SUPPLIED = "INVALID_RATING_SUPPLIED";
 
@@ -63,5 +65,11 @@ public class FilmService {
     public static final String EXISTS = "EXISTS";
 
     public static final String INSUFFICIENT_PERMISSIONS = "INSUFFICIENT_PERMISSIONS";
+
+    public static final String INVALID_REQUEST = "INVALID_REQUEST";
+
+    public static final String GOODBYE = "GOODBYE";
+
+    public static final String SHUTTING_DOWN = "SHUTTING_DOWN";
 
 }

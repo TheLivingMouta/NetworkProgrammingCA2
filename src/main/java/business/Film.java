@@ -60,6 +60,16 @@ public class Film {
         this.numberOfRatings = numberOfRatings;
     }
 
+    public String encode(String delimiter) {return this.title + delimiter + this.genre + delimiter + this.totalRatings + delimiter + this.numberOfRatings;}
+
+    public static Film decode(String encoded, String delimiter){
+        String[] components = encoded.split(delimiter);
+        if(components.length != 4){
+            return null;
+        }
+        return new Film(components[1],components[2]);
+    }
+
     @Override
     public String toString() {
         return "Film{" +
