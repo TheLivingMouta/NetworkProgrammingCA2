@@ -24,26 +24,19 @@ public class FilmClientHandler implements Runnable {
         this.dataSocket = dataSocket;
         this.fm = fm;
         this.um = um;
-
     }
 
     public void run() {
-
-        try (ServerSocket ls = new ServerSocket(FilmService.PORT)) {
-            fm = new FilmManager();
+        try (Scanner input = new Scanner(dataSocket.getInputStream());
+             PrintWriter output = new PrintWriter(dataSocket.getOutputStream())) {
 
             boolean validSession = true;
             while (validSession) {
-                Socket ds = ls.accept();
+                String message = input.nextLine();
+                System.out.println("Message received from " + dataSocket.getInetAddress()+":"+ dataSocket.getPort() + ": " + message);
+                    String[] components = message.split(FilmService.DELIMITER);
+                String response = null;
 
-                try (Scanner clientInput = new Scanner(ds.getInputStream());
-                     PrintWriter clientOutput = new PrintWriter(ds.getOutputStream())) {
-                    String request = clientInput.nextLine();
-                    System.out.println(ds.getInetAddress() + ":" + ds.getPort());
-
-                    String response = null;
-
-                    String[] components = request.split(FilmService.DELIMITER);
                     switch (components[0]) {
                         case FilmService.EXIT:
                             if (components.length == 1) {
@@ -88,17 +81,16 @@ public class FilmClientHandler implements Runnable {
                             response = FilmService.INVALID_REQUEST;
                     }
 
-                    clientOutput.println(response);
-                    clientOutput.flush();
+                    output.println(response);
+                    output.flush();
 
                 }
 
-            }
-        }catch (IOException e) {
-            System.out.println("IOException occurred on data socket when communicating with " + dataSocket.getInetAddress() + ":" + dataSocket.getPort());
-            System.out.println(e.getMessage());
-        }
+    }catch (IOException e) {
+        System.out.println("IOException occurred on data socket when communicating with " + dataSocket.getInetAddress() + ":" + dataSocket.getPort());
+        System.out.println(e.getMessage());
     }
+}
 
 
     private String login(String[] components) {

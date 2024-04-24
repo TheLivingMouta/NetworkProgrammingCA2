@@ -28,15 +28,13 @@ public class Server {
             um = new UserManager();
 
             boolean validSession = true;
-            while (true) {
+            while (validSession) {
                 Socket ds = ls.accept();
                 FilmClientHandler filmHandler = new FilmClientHandler(ds, fm, um);
                 Thread worker = new Thread(filmHandler);
                 worker.start();
-
-
             }
-                } catch (BindException e) {
+            } catch (BindException e) {
                     System.out.println("BindException occurred when attempting to bind to port " + FilmService.PORT);
                     System.out.println(e.getMessage());
 
