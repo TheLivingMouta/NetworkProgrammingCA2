@@ -19,7 +19,6 @@ public class Server {
 
     private static FilmManager fm;
     private static UserManager um;
-    private static User lu;
 
     public static void main(String[] args) {
 

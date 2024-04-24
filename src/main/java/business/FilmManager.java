@@ -7,80 +7,96 @@ public class FilmManager {
 
     private final ArrayList<Film> filmList = new ArrayList<Film>();
 
-    private  void bootstrapFlimList(){
+    private  void bootstrapFlimList() {
         Film f1 = new Film("Ready Player One", "Action drama", 8.6, 1234);
         Film f2 = new Film("The Adventures of Tintin", "Action/family", 10, 243000);
         Film f3 = new Film("Dragon ball super: Super Hero", "Action/Animated", 9.7, 98765);
         Film f4 = new Film("The boy and the Heron", "Weird/Drama", 8.6, 1243567);
 
-        filmList.add(f1);
-        filmList.add(f2);
-        filmList.add(f3);
-        filmList.add(f4);
+        synchronized (filmList) {
+            filmList.add(f1);
+            filmList.add(f2);
+            filmList.add(f3);
+            filmList.add(f4);
 
+        }
     }
 
     public FilmManager(){
         bootstrapFlimList();
     }
 
-    public boolean addFilm(String title, String genre){
+    public boolean addFilm(String title, String genre) {
         Film newfilm = new Film(title, genre);
 
-        if(filmList.contains(newfilm)){
-            return false;
-        } else {
-            filmList.add(newfilm);
-            return true;
-        }
+        synchronized (filmList) {
+            if (filmList.contains(newfilm)) {
+                return false;
 
-    }
-
-    public boolean removeFilm(String title){
-        Film existingfilm = new Film(title);
-
-        if(filmList.contains(existingfilm)){
-            filmList.remove(existingfilm);
-            return  true;
-        } else {
-            return false;
-        }
-
-    }
-
-    public Film getFilmByTitle(String title){
-        Film existingfilm = new Film(title);
-
-        for(Film film : filmList){
-            if(film.getTitle().equals(title)){
-                return film;
+            } else {
+                filmList.add(newfilm);
+                return true;
             }
         }
-        return null;
     }
 
-    public List<Film> getFilmByGenre(String genre){
+    public boolean removeFilm(String title) {
+        Film existingfilm = new Film(title);
+
+        boolean flag = false;
+
+        synchronized (filmList) {
+            if (filmList.contains(existingfilm)) {
+                filmList.remove(existingfilm);
+                flag = true;
+
+            }
+        }
+        return flag;
+    }
+
+    public Film getFilmByTitle(String title) {
+        Film existingfilm = new Film(title);
+
+        synchronized (filmList) {
+            for (Film film : filmList) {
+                if (film.getTitle().equals(title)) {
+                    return film;
+                }
+            }
+            return null;
+        }
+    }
+
+    public List<Film> getFilmByGenre(String genre) {
         List<Film> filmsByGenre = new ArrayList<>();
-        for(Film film : filmList){
-            if(film.getGenre().equals(genre)){
-                filmsByGenre.add(film);
+
+        synchronized (filmList) {
+            for (Film film : filmList) {
+                if (film.getGenre().equals(genre)) {
+                    filmsByGenre.add(film);
+                }
+            }
+            return filmsByGenre;
+        }
+    }
+
+    public void rateFilm(String title, double rating) {
+        Film film = getFilmByTitle(title);
+            if (film != null) {
+                synchronized (film) {
+                    film.setNumberOfRatings(film.getNumberOfRatings() + 1);
+                    film.setTotalRatings(film.getTotalRatings() + rating);
+                }
             }
         }
-        return filmsByGenre;
-    }
 
-    public void rateFilm(String title, double rating){
-        Film film = getFilmByTitle(title);
-        if(film != null){
-            film.setNumberOfRatings(film.getNumberOfRatings() + 1);
-            film.setTotalRatings(film.getTotalRatings() + rating);
-        }
-    }
-
-    public void displayFilms(){
+    public void displayFilms() {
         int count = 1;
-        for (Film film : filmList) {
-            System.out.println(count++ + " " + film.getTitle() + " " + film.getGenre() + " " + film.getTotalRatings() + " " + film.getNumberOfRatings());
+        synchronized (filmList) {
+            for (Film film : filmList) {
+                System.out.println(count++ + " " + film.getTitle() + " " + film.getGenre() + " " + film.getTotalRatings() + " " + film.getNumberOfRatings());
+            }
         }
     }
 
