@@ -11,10 +11,12 @@ public class UserManager {
         User u3 = new User("Admin1", "AdminPassword234", 1);
         User u4 = new User("Carrol", "Password1", 0);
 
-        userList.add(u1);
-        userList.add(u2);
-        userList.add(u3);
-        userList.add(u4);
+        synchronized (userList) {
+            userList.add(u1);
+            userList.add(u2);
+            userList.add(u3);
+            userList.add(u4);
+        }
     }
 
 
@@ -26,43 +28,54 @@ public class UserManager {
     public boolean addUser(String username, String password, int adminStatus) {
         User newUser = new User(username, password, adminStatus);
 
-        if (userList.contains(newUser)) {
-            return false;
-        } else {
-            userList.add(newUser);
-            return true;
-        }
-    }
-    public boolean removeUser(String username){
-        User existingUser = new User(username);
-
-        if(userList.contains(existingUser)){
-            userList.remove(existingUser);
-            return  true;
-        } else {
-            return false;
-        }
-
-    }
-
-    public User getUserByUsename(String username){
-        User existingUser = new User(username);
-
-        for(User user : userList){
-            if(user.getUsername().equals(username)){
-                return user;
+        synchronized (userList) {
+            if (userList.contains(newUser)) {
+                return false;
+            } else {
+                userList.add(newUser);
+                return true;
             }
         }
-        return null;
+    }
+    public boolean removeUser(String username) {
+        User existingUser = new User(username);
+
+        boolean flag = false;
+
+        synchronized (userList) {
+            if (userList.contains(existingUser)) {
+                userList.remove(existingUser);
+                flag = true;
+
+            }
+        }
+        return flag;
+    }
+
+    public User getUserByUsename(String username) {
+        User existingUser = new User(username);
+
+        synchronized (userList) {
+            {
+                for (User user : userList) {
+                    if (user.getUsername().equals(username)) {
+                        return user;
+                    }
+                }
+            }
+            return null;
+        }
     }
 
     public User validateUser (String username, String password){
         User user = new User(username, password);
 
-        if(user.getPassword().equals(password) && user.getUsername().equals(username)){
-            return user;
-        } else {
-            return null;
+        synchronized (user) {
+            if (user.getPassword().equals(password) && user.getUsername().equals(username)) {
+                return user;
+            } else {
+                return null;
+            }
         }
 
     }
