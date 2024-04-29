@@ -56,13 +56,11 @@ public class UserManager {
         User existingUser = new User(username);
 
         synchronized (userList) {
-            {
-                for (User user : userList) {
+            for (User user : userList) {
                     if (user.getUsername().equals(username)) {
                         return user;
                     }
                 }
-            }
             return null;
         }
     }
