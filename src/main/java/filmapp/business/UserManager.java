@@ -18,7 +18,7 @@ public class UserManager {
     private void bootstrapUserMap() {
         userMap.put("John Doe", new User("John Doe", "Password123"));
         userMap.put("Jane Doe", new User("Jane Doe", "Password123"));
-        userMap.put("Admin1", new User("Admin1", "AdminPassword234"));
+        userMap.put("admin", new User("admin", "adminpassword", 1));
         userMap.put("Carrol", new User("Carrol", "Password1"));
     }
 

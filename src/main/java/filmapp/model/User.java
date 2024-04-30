@@ -11,6 +11,12 @@ public class User {
         this.adminStatus = 0;
     }
 
+    public User(String username, String password, int adminStatus) {
+        this.username = username;
+        this.password = password;
+        this.adminStatus = adminStatus;
+    }
+
     public User(String username, String password) {
         this.username = username;
         this.password = password;

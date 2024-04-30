@@ -6,28 +6,40 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Client {
     public static void main(String[] args) {
-        try (Scanner userInput = new Scanner(System.in);
-             Socket dataSocket = new Socket(FilmService.HOST, FilmService.PORT);
-             Scanner input = new Scanner(dataSocket.getInputStream());
-             PrintWriter output = new PrintWriter(dataSocket.getOutputStream(), true)) {
+        try (Scanner userInput = new Scanner(System.in)) {
+            Socket dataSocket = new Socket(FilmService.HOST, FilmService.PORT);
+            Scanner input = new Scanner(dataSocket.getInputStream());
+            PrintWriter output = new PrintWriter(dataSocket.getOutputStream(), true);
 
             boolean validSession = true;
             while (validSession) {
-                String message = generateRequest(userInput);
-                output.println(message);
-                output.flush();
-                if (message.startsWith(FilmService.EXIT)) {
-                    validSession = false;
-                    continue;
-                }
+                try {
+                    String message = generateRequest(userInput);
+                    output.println(message);
+                    output.flush();
 
-                String response = input.nextLine();
-                System.out.println("Received from server: " + response);
-                if (response.equals(FilmService.GOODBYE)) {
+                    if (message.startsWith(FilmService.EXIT)) {
+                        validSession = false;
+                        continue;
+                    }
+
+                    if (input.hasNextLine()) {  // Check if there's a line available to read
+                        String response = input.nextLine();
+                        System.out.println("Received from server: " + response);
+                        if (response.equals(FilmService.GOODBYE)) {
+                            validSession = false;
+                        }
+                    } else {
+                        System.out.println("No response from server.");
+                        validSession = false;
+                    }
+                } catch (NoSuchElementException e) {
+                    System.out.println("Failed to read input: " + e.getMessage());
                     validSession = false;
                 }
             }
@@ -36,6 +48,7 @@ public class Client {
         } catch (IOException e) {
             System.out.println("An IO Exception occurred: " + e.getMessage());
         }
+        // Close the scanner only once you are done with all operations
     }
 
     private static void displayMenu() {
