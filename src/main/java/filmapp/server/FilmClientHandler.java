@@ -105,7 +105,7 @@ public class FilmClientHandler implements Runnable {
             if (lu == null) {
                 response = FilmService.FAILED;
             } else {
-                if (lu.getAdminStatus() != 1) {
+                if (lu.getAdminStatus() == 0) {
                     response = FilmService.SUCCESS_USER;
                 } else if (lu.getAdminStatus() == 1) {
                     response = FilmService.SUCCESS_ADMIN;
@@ -225,7 +225,7 @@ public class FilmClientHandler implements Runnable {
         String title = components[1];
         String genre = components[2];
 
-        if (lu.getAdminStatus() != 0) {
+        if (lu.getAdminStatus() == 1) {
             if (fm.getFilmByTitle(title) != null) {
                 response = FilmService.EXISTS;
             } else {
@@ -245,7 +245,7 @@ public class FilmClientHandler implements Runnable {
 
         String title = components[1];
 
-        if(lu.getAdminStatus() != 0){
+        if(lu.getAdminStatus() == 1){
             Film film = fm.getFilmByTitle(title);
 
             if(film != null){

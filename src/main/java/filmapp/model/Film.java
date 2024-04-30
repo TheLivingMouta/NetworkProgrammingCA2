@@ -78,12 +78,12 @@ public class Film {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Film film = (Film) o;
-        return Objects.equals(title, film.title);
+        return Objects.equals(title, film.title) && Objects.equals(genre, film.genre);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title);
+        return Objects.hash(title, genre);
     }
 
     @Override

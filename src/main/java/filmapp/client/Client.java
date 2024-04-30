@@ -44,7 +44,8 @@ public class Client {
         System.out.println("4) Search Film by Genre ");
         System.out.println("5) Rate Film");
         System.out.println("6) Add Film");
-        System.out.println("7) Log out");
+        System.out.println("7) Remove Film");
+        System.out.println("8) Log out");
         System.out.println("Please select an option:");
     }
 
@@ -87,6 +88,10 @@ public class Client {
                     valid = true;
                     break;
                 case "7":
+                    request = removeFilm(userInput);
+                    valid = true;
+                    break;
+                case "8":
                     System.out.println("Logging out.");
                     request = FilmService.LOGOUT;
                     valid = true;
@@ -144,4 +149,10 @@ public class Client {
         return FilmService.SEARCH_GENRE + FilmService.DELIMITER + genre;
     }
 
+    private static String removeFilm(Scanner userInput) {
+        System.out.println("Enter the title of the film to remove:");
+        String title = userInput.nextLine();
+        return FilmService.REMOVE_FILM + FilmService.DELIMITER + title;
+
+    }
 }
