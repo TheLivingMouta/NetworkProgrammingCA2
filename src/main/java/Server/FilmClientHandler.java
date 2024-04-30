@@ -128,7 +128,7 @@ public class FilmClientHandler implements Runnable {
             response = FilmService.FAILED;
         } else {
 
-            boolean userAdded = um.addUser(username, password, 0);
+            boolean userAdded = um.addUser(username, password);
 
             if(userAdded != false){
                 response = FilmService.ADDED;

@@ -6,10 +6,10 @@ public class UserManager {
     private final ArrayList<User> userList = new ArrayList<User>();
 
     private void bootstrapUserList() {
-        User u1 = new User("John Doe", "Password123", 0);
-        User u2 = new User("John Doe", "Password123", 1);
-        User u3 = new User("Admin1", "AdminPassword234", 1);
-        User u4 = new User("Carrol", "Password1", 0);
+        User u1 = new User("John Doe", "Password123");
+        User u2 = new User("John Doe", "Password123");
+        User u3 = new User("Admin1", "AdminPassword234");
+        User u4 = new User("Carrol", "Password1");
 
         synchronized (userList) {
             userList.add(u1);
@@ -25,8 +25,8 @@ public class UserManager {
         bootstrapUserList();
     }
 
-    public boolean addUser(String username, String password, int adminStatus) {
-        User newUser = new User(username, password, adminStatus);
+    public boolean addUser(String username, String password) {
+        User newUser = new User(username, password);
 
         synchronized (userList) {
             if (userList.contains(newUser)) {
@@ -81,7 +81,7 @@ public class UserManager {
     public void displayUsers(){
         int count = 1;
         for (User user : userList) {
-            System.out.println(count++ + " " + user.getUsername() + " " + user.getPassword() + " " + user.getAdminStatus());
+            System.out.println(count++ + " " + user.getUsername() + " " + user.getAdminStatus());
         }
     }
 
@@ -94,9 +94,9 @@ public class UserManager {
         System.out.println("---------------------------");
 
         System.out.println("Adding users");
-        userManager.addUser("Oran", "password2", 0);
-        userManager.addUser("testUser", "password2", 0);
-        userManager.addUser("Admin", "password2", 1);
+        userManager.addUser("Oran", "password2");
+        userManager.addUser("testUser", "password2");
+        userManager.addUser("Admin", "password2");
 
         System.out.println("Display all users");
         userManager.displayUsers();

@@ -8,19 +8,17 @@ public class User {
     private int adminStatus; //0 - user, 1 - admin
 
     public User() {
+        this.adminStatus = 0;
     }
 
-    public User(String username, String password, int adminStatus) {
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
-        this.adminStatus = adminStatus;
-    }
-
-    public User(String username, String password){
-
+        this.adminStatus = 0;
     }
 
     public User(String username) {
+        this.adminStatus = 0;
     }
 
     public String getUsername() {
@@ -28,7 +26,9 @@ public class User {
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        if (username == null || username.trim().isEmpty()) {
+            throw new IllegalArgumentException("Username cannot be empty.");
+        }
     }
 
     public String getPassword() {
@@ -36,9 +36,10 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        if (password == null || password.trim().isEmpty()) {
+            throw new IllegalArgumentException("Password cannot be empty.");
+        }
     }
-
     public int getAdminStatus() {
         return adminStatus;
     }
@@ -64,7 +65,6 @@ public class User {
     public String toString() {
         return "User{" +
                 "username='" + username + '\'' +
-                ", password='" + password + '\'' +
                 ", adminStatus=" + adminStatus +
                 '}';
     }
