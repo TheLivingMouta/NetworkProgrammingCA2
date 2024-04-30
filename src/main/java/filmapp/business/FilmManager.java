@@ -1,12 +1,21 @@
-package business;
+package filmapp.business;
+
+import filmapp.model.Film;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Manages film operations including adding, removing, and retrieving films based on various criteria.
+ * This class initializes with a default list of films and provides methods to manipulate and query the film list.
+ */
 public class FilmManager {
 
     private final ArrayList<Film> filmList = new ArrayList<Film>();
 
+    /**
+     * Populates the film list with default data.
+     */
     private  void bootstrapFlimList() {
         Film f1 = new Film("Ready Player One", "Action drama", 8.6, 1234);
         Film f2 = new Film("The Adventures of Tintin", "Action/family", 10, 243000);
@@ -22,10 +31,20 @@ public class FilmManager {
         }
     }
 
+    /**
+     * Initializes the FilmManager and populates it with a predefined set of films.
+     */
     public FilmManager(){
         bootstrapFlimList();
     }
 
+    /**
+     * Adds a new film with specified title and genre to the film list.
+     *
+     * @param title the title of the new film
+     * @param genre the genre of the new film
+     * @return true if the film was added successfully, false if the film already exists
+     */
     public boolean addFilm(String title, String genre) {
         Film newfilm = new Film(title, genre);
 
@@ -40,6 +59,12 @@ public class FilmManager {
         }
     }
 
+    /**
+     * Removes a film by title.
+     *
+     * @param title the title of the film to be removed
+     * @return true if the film was successfully removed, false otherwise
+     */
     public boolean removeFilm(String title) {
         Film existingfilm = new Film(title);
 
@@ -55,6 +80,12 @@ public class FilmManager {
         return flag;
     }
 
+    /**
+     * Retrieves a film by its title.
+     *
+     * @param title the title of the film to retrieve
+     * @return the Film object if found, null otherwise
+     */
     public Film getFilmByTitle(String title) {
         Film existingfilm = new Film(title);
 
@@ -68,6 +99,12 @@ public class FilmManager {
         }
     }
 
+    /**
+     * Retrieves all films matching a specified genre.
+     *
+     * @param genre the genre to search for
+     * @return a list of films matching the specified genre
+     */
     public List<Film> getFilmByGenre(String genre) {
         List<Film> filmsByGenre = new ArrayList<>();
 
@@ -81,6 +118,12 @@ public class FilmManager {
         }
     }
 
+    /**
+     * Rates a specified film by adding a rating.
+     *
+     * @param title the title of the film to rate
+     * @param rating the rating to add to the film
+     */
     public void rateFilm(String title, double rating) {
         Film film = getFilmByTitle(title);
             if (film != null) {

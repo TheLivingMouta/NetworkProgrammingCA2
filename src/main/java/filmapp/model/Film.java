@@ -1,4 +1,4 @@
-package business;
+package filmapp.model;
 
 import java.util.Objects;
 

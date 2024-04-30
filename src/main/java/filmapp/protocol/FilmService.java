@@ -1,4 +1,4 @@
-package protocol;
+package filmapp.protocol;
 
 public class FilmService {
 

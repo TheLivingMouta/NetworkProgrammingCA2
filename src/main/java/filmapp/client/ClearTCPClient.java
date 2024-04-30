@@ -1,6 +1,6 @@
-package client;
+package filmapp.client;
 
-import protocol.FilmService;
+import filmapp.protocol.FilmService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;

@@ -1,14 +1,10 @@
-package server;
-
-import business.Film;
-import business.FilmManager;
-import business.User;
-import business.UserManager;
-import protocol.FilmService;
+package filmapp.server;
+import filmapp.business.*;
+import filmapp.model.*;
+import filmapp.protocol.FilmService;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
 import java.util.Scanner;

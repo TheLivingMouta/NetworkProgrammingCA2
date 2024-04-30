@@ -1,8 +1,7 @@
-package server;
+package filmapp.server;
 
-import business.FilmManager;
-import business.UserManager;
-import protocol.FilmService;
+import filmapp.business.*;
+import filmapp.protocol.FilmService;
 
 import java.io.IOException;
 import java.net.BindException;
@@ -23,7 +22,7 @@ public class Server {
             boolean validSession = true;
             while (validSession) {
                 Socket ds = ls.accept();
-                FilmClientHandler filmHandler = new FilmClientHandler(ds, fm, um);
+                filmapp.server.FilmClientHandler filmHandler = new filmapp.server.FilmClientHandler(ds, fm, um);
                 Thread worker = new Thread(filmHandler);
                 worker.start();
             }

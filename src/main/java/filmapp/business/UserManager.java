@@ -1,10 +1,19 @@
-package business;
+package filmapp.business;
+
+import filmapp.model.User;
 
 import java.util.ArrayList;
 
+/**
+ * Manages user operations such as adding, removing, and retrieving users.
+ * It initializes with a default set of users and provides functionality to manipulate the user list.
+ */
 public class UserManager {
     private final ArrayList<User> userList = new ArrayList<User>();
 
+    /**
+     * Populates the user list with default data.
+     */
     private void bootstrapUserList() {
         User u1 = new User("John Doe", "Password123");
         User u2 = new User("John Doe", "Password123");
@@ -20,11 +29,20 @@ public class UserManager {
     }
 
 
-
+    /**
+     * Initializes the UserManager and populates it with a predefined set of users.
+     */
     public UserManager() {
         bootstrapUserList();
     }
 
+    /**
+     * Adds a new user with specified username and password to the user list.
+     *
+     * @param username the username of the new user
+     * @param password the password for the new user
+     * @return true if the user was added successfully, false if the user already exists
+     */
     public boolean addUser(String username, String password) {
         User newUser = new User(username, password);
 
@@ -37,6 +55,12 @@ public class UserManager {
             }
         }
     }
+    /**
+     * Removes a user by username.
+     *
+     * @param username the username of the user to remove
+     * @return true if the user was successfully removed, false otherwise
+     */
     public boolean removeUser(String username) {
         User existingUser = new User(username);
 
@@ -52,6 +76,12 @@ public class UserManager {
         return flag;
     }
 
+    /**
+     * Retrieves a user by username.
+     *
+     * @param username the username of the user to retrieve
+     * @return the User object if found, null otherwise
+     */
     public User getUserByUsename(String username) {
         User existingUser = new User(username);
 
@@ -65,6 +95,13 @@ public class UserManager {
         }
     }
 
+    /**
+     * Validates a user's username and password.
+     *
+     * @param username the username of the user
+     * @param password the password of the user
+     * @return the User object if credentials are valid, null otherwise
+     */
     public User validateUser (String username, String password){
         User user = new User(username, password);
 
