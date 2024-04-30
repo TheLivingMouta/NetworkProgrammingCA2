@@ -57,6 +57,7 @@ public class Client {
         System.out.println("1) Register");
         System.out.println("2) Login");
         System.out.println("3) Search Film by Title");
+        System.out.println("5) Search Film by Film");
         System.out.println("4) Add Film");
         System.out.println("5) Rate Film");
         System.out.println("6) Logout");
@@ -96,11 +97,11 @@ public class Client {
                     valid = true;
                     break;
                 case "5":
-                    request = rateFilm(userInput);
+                    request = searchByGenre(userInput);
                     valid = true;
                     break;
                 case "6":
-                    request = searchByGenre(userInput);
+                    request = rateFilm(userInput);
                     valid = true;
                     break;
                 case "7":
