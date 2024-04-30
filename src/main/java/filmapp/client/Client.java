@@ -6,40 +6,25 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Client {
     public static void main(String[] args) {
-        try (Scanner userInput = new Scanner(System.in)) {
-            Socket dataSocket = new Socket(FilmService.HOST, FilmService.PORT);
-            Scanner input = new Scanner(dataSocket.getInputStream());
-            PrintWriter output = new PrintWriter(dataSocket.getOutputStream(), true);
+        try (Scanner userInput = new Scanner(System.in); Socket dataSocket = new Socket(FilmService.HOST, FilmService.PORT); Scanner input = new Scanner(dataSocket.getInputStream()); PrintWriter output = new PrintWriter(dataSocket.getOutputStream(), true)) {
 
             boolean validSession = true;
             while (validSession) {
-                try {
-                    String message = generateRequest(userInput);
-                    output.println(message);
-                    output.flush();
+                String message = generateRequest(userInput);
+                output.println(message);
+                output.flush();
+                if (message.startsWith(FilmService.EXIT)) {
+                    validSession = false;
+                    continue;
+                }
 
-                    if (message.startsWith(FilmService.EXIT)) {
-                        validSession = false;
-                        continue;
-                    }
-
-                    if (input.hasNextLine()) {  // Check if there's a line available to read
-                        String response = input.nextLine();
-                        System.out.println("Received from server: " + response);
-                        if (response.equals(FilmService.GOODBYE)) {
-                            validSession = false;
-                        }
-                    } else {
-                        System.out.println("No response from server.");
-                        validSession = false;
-                    }
-                } catch (NoSuchElementException e) {
-                    System.out.println("Failed to read input: " + e.getMessage());
+                String response = input.nextLine();
+                System.out.println("Received from server: " + response);
+                if (response.equals(FilmService.GOODBYE)) {
                     validSession = false;
                 }
             }
@@ -48,7 +33,6 @@ public class Client {
         } catch (IOException e) {
             System.out.println("An IO Exception occurred: " + e.getMessage());
         }
-        // Close the scanner only once you are done with all operations
     }
 
     private static void displayMenu() {
@@ -57,12 +41,11 @@ public class Client {
         System.out.println("1) Register");
         System.out.println("2) Login");
         System.out.println("3) Search Film by Title");
-        System.out.println("5) Search Film by Film");
-        System.out.println("4) Add Film");
+        System.out.println("4) Search Film by Genre ");
         System.out.println("5) Rate Film");
-        System.out.println("6) Logout");
+        System.out.println("6) Add Film");
+        System.out.println("7) Log out");
         System.out.println("Please select an option:");
-
     }
 
     public static String generateRequest(Scanner userInput) {
@@ -71,7 +54,6 @@ public class Client {
 
         while (!valid) {
             displayMenu();
-            System.out.println("Choose an option: ");
             String choice = userInput.nextLine();
 
             switch (choice) {
@@ -93,15 +75,15 @@ public class Client {
                     valid = true;
                     break;
                 case "4":
-                    request = addFilm(userInput);
-                    valid = true;
-                    break;
-                case "5":
                     request = searchByGenre(userInput);
                     valid = true;
                     break;
-                case "6":
+                case "5":
                     request = rateFilm(userInput);
+                    valid = true;
+                    break;
+                case "6":
+                    request = addFilm(userInput);
                     valid = true;
                     break;
                 case "7":
@@ -116,7 +98,6 @@ public class Client {
         }
         return request;
     }
-
 
 
     private static String register(Scanner userInput) {
@@ -163,14 +144,4 @@ public class Client {
         return FilmService.SEARCH_GENRE + FilmService.DELIMITER + genre;
     }
 
-    private static void handleGetResponse(String response) {
-        String [] responseComponents = response.split(FilmService.DELIMITER);
-        if(responseComponents.length == 2){
-            System.out.println("Quote received:");
-            System.out.println("\"" + responseComponents[0] + "\"");
-            System.out.println("\t- " + responseComponents[1]);
-        }else{
-            System.out.println("Unrecognised response detected. Please try again later.");
-        }
-    }
 }

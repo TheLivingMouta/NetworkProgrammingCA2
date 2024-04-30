@@ -20,6 +20,7 @@ public class UserManager {
         userMap.put("Jane Doe", new User("Jane Doe", "Password123"));
         userMap.put("admin", new User("admin", "adminpassword", 1));
         userMap.put("Carrol", new User("Carrol", "Password1"));
+        userMap.put("user", new User("user", "userpassword"));
     }
 
 
