@@ -71,11 +71,7 @@ public class FilmManager {
         boolean flag = false;
 
         synchronized (filmList) {
-            if (filmList.contains(existingfilm)) {
-                filmList.remove(existingfilm);
-                flag = true;
-
-            }
+            filmList.remove(existingfilm);
         }
         return flag;
     }

@@ -11,9 +11,9 @@ import java.util.Scanner;
 
 public class FilmClientHandler implements Runnable {
 
-    private Socket dataSocket;
-    private FilmManager fm;
-    private UserManager um;
+    private final Socket dataSocket;
+    private final FilmManager fm;
+    private final UserManager um;
     private User lu;
 
     public FilmClientHandler(Socket dataSocket, FilmManager fm, UserManager um) {
@@ -130,7 +130,7 @@ public class FilmClientHandler implements Runnable {
 
             boolean userAdded = um.addUser(username, password);
 
-            if(userAdded != false){
+            if(userAdded){
                 response = FilmService.ADDED;
             } else {
                 response = FilmService.REJECTED;
