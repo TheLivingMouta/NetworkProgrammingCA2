@@ -95,27 +95,31 @@ public class FilmClientHandler implements Runnable {
 
     private String login(String[] components) {
 
-        String response;
+        String response = null;
+
 
         String username = components[1];
         String password = components[2];
 
-        if(components.length != 3){
+
+        if (components.length != 3) {
             response = FilmService.FAILED;
         } else {
             lu = um.validateUser(username, password);
-            if(lu == null){
+            if (lu == null) {
                 response = FilmService.FAILED;
             } else {
-                if(lu.getAdminStatus() != 1){
+                if (lu.getAdminStatus() != 1) {
                     response = FilmService.SUCCESS_USER;
-                } else  {
+                } else if (lu.getAdminStatus() == 1) {
                     response = FilmService.SUCCESS_ADMIN;
                 }
             }
         }
 
+
         return response;
+
     }
 
     private String register(String[] components){
@@ -184,7 +188,7 @@ public class FilmClientHandler implements Runnable {
         String title = components[1];
         Film film = fm.getFilmByTitle(title);
 
-        if(components.length != 1){
+        if(components.length != 2){
             response = FilmService.NO_MATCH_FOUND;
         } else {
             response = film.toString();

@@ -61,7 +61,7 @@ public class FilmManager {
         synchronized (filmList) {
             for (Film film : filmList) {
                 if (film.getTitle().equals(title)) {
-                    return film;
+                    return existingfilm;
                 }
             }
             return null;

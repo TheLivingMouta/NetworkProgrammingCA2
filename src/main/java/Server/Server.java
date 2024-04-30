@@ -1,19 +1,13 @@
-package Server;
+package server;
 
-import business.Film;
 import business.FilmManager;
-import business.User;
 import business.UserManager;
 import protocol.FilmService;
-import server.FilmClientHandler;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.List;
-import java.util.Scanner;
 
 public class Server {
 

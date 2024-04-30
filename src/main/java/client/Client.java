@@ -1,5 +1,6 @@
 package client;
 
+import business.UserManager;
 import protocol.FilmService;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -47,6 +48,7 @@ public class Client {
         System.out.println("5) Rate Film");
         System.out.println("6) Logout");
         System.out.println("Please select an option:");
+
     }
 
     public static String generateRequest(Scanner userInput) {
@@ -145,5 +147,16 @@ public class Client {
         System.out.println("Enter genre to search:");
         String genre = userInput.nextLine();
         return FilmService.SEARCH_GENRE + FilmService.DELIMITER + genre;
+    }
+
+    private static void handleGetResponse(String response) {
+        String [] responseComponents = response.split(FilmService.DELIMITER);
+        if(responseComponents.length == 2){
+            System.out.println("Quote received:");
+            System.out.println("\"" + responseComponents[0] + "\"");
+            System.out.println("\t- " + responseComponents[1]);
+        }else{
+            System.out.println("Unrecognised response detected. Please try again later.");
+        }
     }
 }

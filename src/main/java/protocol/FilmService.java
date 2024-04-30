@@ -14,29 +14,29 @@ public class FilmService {
 
     // GENERAL
 
-    public static final String EXIT = "EXIT";
+    public static final String EXIT = "exit";
 
-    public static final String SHUTDOWN = "SHUTDOWN";
+    public static final String SHUTDOWN = "shutdown";
 
     //USER
 
-    public static final String REGISTER = "REGISTER";
+    public static final String REGISTER = "register";
 
-    public static final String LOGIN = "LOGIN";
+    public static final String LOGIN = "login";
 
-    public static final String LOGOUT = "LOGOUT";
+    public static final String LOGOUT = "logout";
 
     //FILM
-    public static final String RATING = "RATING";
+    public static final String RATING = "rate";
 
-    public static final String SEARCH_TITLE = "SEARCH_TITLE";
+    public static final String SEARCH_TITLE = "searchByName";
 
-    public static final String SEARCH_GENRE = "SEARCH_GENRE";
+    public static final String SEARCH_GENRE = "searchByGenre";
 
     //  ADMIN REQUEST FEATURE
-    public static final String ADD_FILM = "ADD_FILM";
+    public static final String ADD_FILM = "add";
 
-    public static final String REMOVE_FILM = "REMOVE_FILM";
+    public static final String REMOVE_FILM = "remove";
 
 
 
